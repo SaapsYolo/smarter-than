@@ -30,6 +30,11 @@ import React from 'react'
             question: "Which planet is known as a dwarf planet?",
             options: ["Earth", "Saturn", "Pluto", "Mars"],
             answer: "Pluto"
+        },{
+            question: "Which brand is shown on the picture bellow?",
+            image: "images/nike.jpeg",
+            options: ["Adidas", "Puma", "Reebok", "Nike"],
+            answer: "Nike"
         },
       ]
 
