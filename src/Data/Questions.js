@@ -9,7 +9,28 @@ import React from 'react'
         {
             question: "What is 2 + 2?",
             options: ["3", "4", "5", "6"],
-            answer: "4"}
+            answer: "4"
+        },{
+            question: "What color do you get when you mix red and yellow?",
+            options: ["Green", "Purple", "Orange", "Blue"],
+            answer: "Orange"
+        },{
+            question: "What’s the largest ocean on Earth?",
+            options: ["Atlantic", "Indian", "Arctic", "Pacific"],
+            answer: "Pacific"
+        },{
+            question: "Who wrote the play 'Romeo and Juliet'?",
+            options: ["Charles Dickens", "William Shakespeare", "Jane Austen", "Mark Twain"],
+            answer: "William Shakespeare"
+        },{
+            question: "What planet is known as the Red Planet?",
+            options: ["Earth", "Mars", "Jupiter", "Saturn"],
+            answer: "Mars"
+        },{
+            question: "Which planet is known as a dwarf planet?",
+            options: ["Earth", "Saturn", "Pluto", "Mars"],
+            answer: "Pluto"
+        },
       ]
 
 export default questions;
