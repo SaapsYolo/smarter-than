@@ -8,14 +8,16 @@ function Quiz() {
   const [isFinished, setIsFinished] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const [timer, setTimer] = useState(10);
+  const [isStarted, setIsStarted] = useState(false); // NEW STATE
 
   const currentQuestion = Questions[currentIndex];
 
   useEffect(() => {
+    if (!isStarted) return; // Don't start timer until game starts
     if (selectedOption || isFinished) return;
 
     if (timer === 0) {
-      setSelectedOption("timeout"); // disable options
+      setSelectedOption("timeout");
       setTimeout(() => handleNext(false), 1000);
       return;
     }
@@ -25,7 +27,7 @@ function Quiz() {
     }, 1000);
 
     return () => clearInterval(countdown);
-  }, [timer, selectedOption, isFinished]);
+  }, [timer, selectedOption, isFinished, isStarted]);
 
   useEffect(() => {
     setTimer(10);
@@ -56,13 +58,36 @@ function Quiz() {
     setIsFinished(false);
     setSelectedOption(null);
     setTimer(10);
+    setIsStarted(false); // Reset to start screen
   };
+
+  // START GAME SCREEN
+  if (!isStarted) {
+    return (
+      <div className='quiz-container'>
+        <h2>Welcome to the Quiz!</h2>
+        <button
+          onClick={() => setIsStarted(true)}
+          style={{
+            padding: '10px 20px',
+            backgroundColor: '#4CAF50',
+            color: 'white',
+            border: 'none',
+            borderRadius: '5px',
+            cursor: 'pointer'
+          }}
+        >
+          Start Game
+        </button>
+      </div>
+    );
+  }
 
   if (isFinished) {
     return (
       <div className='quiz-container'>
         <h2>Quiz Finished!</h2>
-        <h3>Your Score: {score} out of {Questions.length}</h3>
+        <p>Your Score: {score} out of {Questions.length}</p>
         <button onClick={restartQuiz}
           style={{
             padding: '10px 20px',
@@ -80,7 +105,19 @@ function Quiz() {
 
   return (
     <div className='quiz-container'>
-      <p>{currentQuestion.question}</p>
+     <div className="statusInfo" style={{
+        display: 'flex',
+        gap: '5rem',
+        justifyContent: 'space-around',
+        color: '#00000088',
+     }}>
+       <p>Difficulty level: {currentQuestion.difficulty}</p>
+      <p> {currentIndex + 1} of {Questions.length}</p>
+     </div>
+      {/* <h4>Score: {score}</h4> */}
+      <p style={{
+        fontWeight: 'bold',
+      }}>{currentQuestion.question}</p>
 
       {currentQuestion.image && (
         <img
@@ -90,7 +127,7 @@ function Quiz() {
         />
       )}
 
-      <p style={{ fontSize: "18px", fontWeight: "bold" }}>
+      <p style={{ fontSize: "18px" }}>
         Time left: {timer} seconds
       </p>
 
